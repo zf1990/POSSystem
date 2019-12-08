@@ -6,104 +6,120 @@ import java.util.HashMap;
 import java.util.Queue;
 
 public abstract class Transaction {
-    public Cashier cashier;
-    public LocalDateTime time = LocalDateTime.now();
-    public ArrayList<LineItem> items;
-    protected int transactionID;
-    protected float total;
-    protected float subTotal;
-    protected ArrayList<Payment> payments; //for when we need to do returns
 
-    public float getTotal(){
-        return total;
-    }
+	public Cashier cashier;
+	public LocalDateTime time = LocalDateTime.now();
+	public ArrayList<LineItem> items;
+	protected int transactionID;
+	protected float total;
+	protected float subTotal;
+	protected ArrayList<Payment> payments; // for when we need to do returns
+	public Register register;
+	public Cashier cashier;
 
-    public float getSubTotal(){
-        return subTotal;
-    }
-    
-    public void addPayment(Payment payment){
-        payments.add(payment);
-    }
+	public float getTotal() {
+		return total;
+	}
 
-    public ArrayList<LineItem> getItems(){
-        return items;
-    }
+	public Transaction(Cashier cashier, Register register) {
+		this.register = register;
+		this.cashier = cashier;
 
-    public ArrayList<Payment> getPayments(){
-        return payments;
-    }
+	}
 
-    public int getId(){
-        return transactionID;
-    }
+	public float getSubTotal() {
+		return subTotal;
+	}
 
-    public void setItems(ArrayList<LineItem> items) {
-        this.items = items;
-    }
+	public void addPayment(Payment payment) {
+		payments.add(payment);
+	}
 
-    public int getTransactionID() {
-        return transactionID;
-    }
+	public ArrayList<LineItem> getItems() {
+		return items;
+	}
 
-    public void setTransactionID(int transactionID) {
-        this.transactionID = transactionID;
-    }
+	public ArrayList<Payment> getPayments() {
+		return payments;
+	}
 
-    public void setTotal(float total) {
-        this.total = total;
-    }
+	public int getId() {
+		return transactionID;
+	}
 
-    public void setSubTotal(float subTotal) {
-        this.subTotal = subTotal;
-    }
+	public void setItems(ArrayList<LineItem> items) {
+		this.items = items;
+	}
 
-    public void setPayments(ArrayList<Payment> payments) {
-        this.payments = payments;
-    }
+	public int getTransactionID() {
+		return transactionID;
+	}
 
-    public Cashier getCashier() {
-        return cashier;
-    }
+	public void setTransactionID(int transactionID) {
+		this.transactionID = transactionID;
+	}
 
-    public void setCashier(Cashier cashier) {
-        this.cashier = cashier;
-    }
+	public void setTotal(float total) {
+		this.total = total;
+	}
 
-    public LocalDateTime getTime() {
-        return time;
-    }
+	public void setSubTotal(float subTotal) {
+		this.subTotal = subTotal;
+	}
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
-    }
+	public void setPayments(ArrayList<Payment> payments) {
+		this.payments = payments;
+	}
 
-    public String printTotals() {
-        String output = " ";
-        // Calculate tax and total
-        float tax = TaxCalculator.getTax(subTotal);
-        total = subTotal + tax;
+	public Cashier getCashier() {
+		return cashier;
+	}
 
-        // Set up ability to format print statements right so everything aligns
-        int digits = ((Float)total).toString().length();
-        String format = "%" + digits + ".2f";
-        output += (toString() + "\n");
-        output += String.format("Subtotal: $" + format + "\n", subTotal);
-        output += String.format("Tax:      $" + format + "\n", tax);
-        output += String.format("Total:    $" + format + "\n", total);
+	public void setCashier(Cashier cashier) {
+		this.cashier = cashier;
+	}
 
-        return output;
-    }
+	public LocalDateTime getTime() {
+		return time;
+	}
 
-    @Override
-    public abstract String toString();
+	public void setTime(LocalDateTime time) {
+		this.time = time;
+	}
 
-    public void updateInventory (HashMap Item){
+	public String printTotals() {
+		String output = " ";
+		// Calculate tax and total
+		float tax = TaxCalculator.getTax(subTotal);
+		total = subTotal + tax;
 
-    }
+		// Set up ability to format print statements right so everything aligns
+		int digits = ((Float) total).toString().length();
+		String format = "%" + digits + ".2f";
+		output += (toString() + "\n");
+		output += String.format("Subtotal: $" + format + "\n", subTotal);
+		output += String.format("Tax:      $" + format + "\n", tax);
+		output += String.format("Total:    $" + format + "\n", total);
 
-    public void updateRegister (HashMap Item){
+		return output;
+	}
 
-    }
+	@Override
+	public abstract String toString();
+
+	public void updateInventory(HashMap Item) {
+
+	}
+
+	public void updateRegister() {
+		register.addTransaction(this);
+		register.updateCashierReport(trans);
+		register.updateAmount(toBeUpdated);
+
+	}
+
+	public class FinishingTransaction {
+
+	}
 
 }
