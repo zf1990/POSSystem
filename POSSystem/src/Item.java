@@ -110,16 +110,4 @@ public class Item {
 	public void setSupplier(String supplier) {
 		this.supplier = supplier;
 	}
-	
-	public void getInventoryReport() {
-		// Inputs and outputs to be displayed into file or csv.
-		
-		
-	}
-
-	public void setOrderingQuantity(int orderingQuantity2) {
-		this.orderingQuantity = orderingQuantity2;
-		
-	}
-
 }

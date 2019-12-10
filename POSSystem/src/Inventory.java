@@ -13,7 +13,7 @@ public class Inventory {
 	private static int itemCount;
 	private String path;
 	
-	public Inventory(String name) {
+	public Inventory(String storeName) {
 		this.name = name;
 		inventoryList = new ArrayList<Item>();
 		itemCount=0;
@@ -39,6 +39,10 @@ public class Inventory {
 		item.setOrderingQuantity(0);
 	}
 	
+	public static ArrayList<Item> getInventoryList() {
+		return inventoryList;
+	}
+	
 //	private int findIndex(Item item) {
 //		int index = inventoryList.indexOf(item);
 //		return index;
@@ -52,6 +56,14 @@ public class Inventory {
 			
 			pw.println("Item Name" + "," + "Current Item Quantity" + "," + "Threshhold" + "," + "Supplier" + "," + "Pending Item Quantity");
 			
+			for (int i = 0; i<itemCount; i++) {
+				pw.println(inventoryList.get(i).getName() + "," +
+						inventoryList.get(i).getQuantity().toString() + "," +
+						inventoryList.get(i).getThreshhold().toString() + "," +
+						inventoryList.get(i).getSupplier() + "," +
+						inventoryList.get(i).getOrderingQuantity().toString()
+						);
+			}
 			
 			pw.flush();
 			pw.close();
@@ -59,8 +71,6 @@ public class Inventory {
 			e.printStackTrace();
 			System.out.println("Exception occured.  File not saved.");
 		}
-		
 	}
-	
 
 }

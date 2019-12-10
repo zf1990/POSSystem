@@ -7,35 +7,40 @@ import java.util.Queue;
 
 public abstract class Transaction {
 
-	public Cashier cashier;
-	public LocalDateTime time = LocalDateTime.now();
-	public ArrayList<LineItem> items;
+	public User handler;
+	private LocalDateTime time;
+	public ArrayList<Item> items;
 	protected int transactionID;
-	protected float total;
-	protected float subTotal;
+	static int transactionCounter = 0;
+	protected double total;
+	protected double subTotal;
 	protected ArrayList<Payment> payments; // for when we need to do returns
 	public Register register;
-	public Cashier cashier;
+	protected double taxRate = 0.0625;
+	protected TransactionType transType;
 
-	public float getTotal() {
-		return total;
-	}
-
-	public Transaction(Cashier cashier, Register register) {
+	public Transaction(Register register) {
 		this.register = register;
-		this.cashier = cashier;
-
+		this.handler = register.getCurrentUser();
+		time = LocalDateTime.now();
+		items = new ArrayList<Item>();
+		transactionID = transactionCounter++;
 	}
 
-	public float getSubTotal() {
+	public double getSubTotal() {
 		return subTotal;
 	}
 
 	public void addPayment(Payment payment) {
 		payments.add(payment);
 	}
+	
+	public double getTotal() {
+		return total;
+	}
 
-	public ArrayList<LineItem> getItems() {
+
+	public ArrayList<Item> getItems() {
 		return items;
 	}
 
@@ -47,7 +52,7 @@ public abstract class Transaction {
 		return transactionID;
 	}
 
-	public void setItems(ArrayList<LineItem> items) {
+	public void setItems(ArrayList<Item> items) {
 		this.items = items;
 	}
 
@@ -63,42 +68,34 @@ public abstract class Transaction {
 		this.total = total;
 	}
 
-	public void setSubTotal(float subTotal) {
-		this.subTotal = subTotal;
-	}
-
 	public void setPayments(ArrayList<Payment> payments) {
 		this.payments = payments;
 	}
 
-	public Cashier getCashier() {
-		return cashier;
+	public User getUser() {
+		return handler;
 	}
 
-	public void setCashier(Cashier cashier) {
-		this.cashier = cashier;
-	}
-
-	public LocalDateTime getTime() {
-		return time;
-	}
-
-	public void setTime(LocalDateTime time) {
-		this.time = time;
+	public void setUser(User person) {
+		this.handler = person;
 	}
 
 	public String printTotals() {
-		String output = " ";
+		String output = "";
+		
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd\tHH:mm:ss");
+		String formattedDateTime = myFormatObj.format(time);
+
+
 		// Calculate tax and total
-		float tax = TaxCalculator.getTax(subTotal);
-		total = subTotal + tax;
+
 
 		// Set up ability to format print statements right so everything aligns
-		int digits = ((Float) total).toString().length();
+		int digits = Double.toString(total).length();
 		String format = "%" + digits + ".2f";
 		output += (toString() + "\n");
 		output += String.format("Subtotal: $" + format + "\n", subTotal);
-		output += String.format("Tax:      $" + format + "\n", tax);
+		output += String.format("Tax:      $" + format + "\n", taxRate*100 + "%");
 		output += String.format("Total:    $" + format + "\n", total);
 
 		return output;
@@ -107,19 +104,20 @@ public abstract class Transaction {
 	@Override
 	public abstract String toString();
 
-	public void updateInventory(HashMap Item) {
-
-	}
-
+	public abstract void updateInventory();
 	public void updateRegister() {
 		register.addTransaction(this);
-		register.updateCashierReport(trans);
-		register.updateAmount(toBeUpdated);
 
 	}
 
-	public class FinishingTransaction {
-
+	public void FinishTransaction() {
+		updateRegister();
+		updateInventory();
+		printReceipts();
 	}
+
+	protected abstract void processPayment();
+
+	public abstract void printReceipts();
 
 }
