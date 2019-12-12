@@ -74,7 +74,6 @@ public class Inventory {
 						inventoryList.get(i).getOrderingQuantity().toString()
 						);
 			}
-			
 			pw.flush();
 			pw.close();
 		} catch (IOException e) {

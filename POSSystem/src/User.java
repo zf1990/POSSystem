@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
@@ -13,9 +14,11 @@ public class User {
 	private String ChangeUserName;
 	private String ChangePassword;
 	private int UserId;
+	private Roles role;
+	private static ArrayList<User> users;
 
 	public User(String userName, String password, String firstName, String lastName, String emailAddress,
-			String phoneNumber) {
+			String phoneNumber, Roles role) {
 
 		this.UserName = userName;
 		this.Password = password;
@@ -23,6 +26,8 @@ public class User {
 		this.LastName = lastName;
 		this.EmailAddress = emailAddress;
 		this.PhoneNumber = phoneNumber;
+		this.role = role;
+		users.add(this);
 	}
 
 	public void UserDictionary() {
