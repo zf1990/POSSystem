@@ -6,10 +6,12 @@
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Inventory {
-	private String name;
+	private static String name;
 	private static ArrayList<Item> inventoryList;
+	private static HashMap<Integer, Item> itemMap;
 	private static int itemCount;
 	private String path;
 	
@@ -18,15 +20,19 @@ public class Inventory {
 		inventoryList = new ArrayList<Item>();
 		itemCount=0;
 		path = "inventoryReport.csv";
+		itemMap = new HashMap<Integer, Item>();
+		
 	}
 	
 	public static void addToInventory(Item item) {
 		inventoryList.add(item);
+		itemMap.put(item.getItemID(), item);
 		itemCount++;
 	}
 	
 	public static void removeItem(Item item) {
 		inventoryList.remove(item);
+		itemMap.remove(item.getItemID());
 		itemCount--;
 	}
 	
@@ -41,6 +47,10 @@ public class Inventory {
 	
 	public static ArrayList<Item> getInventoryList() {
 		return inventoryList;
+	}
+	
+	public static HashMap<Integer, Item> getItemMap() {
+		return itemMap;
 	}
 	
 //	private int findIndex(Item item) {

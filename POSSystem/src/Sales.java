@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.io.*;
+import java.time.format.DateTimeFormatter;
 
 
 public class Sales extends Transaction {
@@ -11,8 +12,6 @@ public class Sales extends Transaction {
 
     public Sales(Register register){
     	super(register);
-        double total = 0;
-        double subTotal= 0;
         this.transactionID = transactionID;
         payments = new ArrayList<>();
         items = new ArrayList<>();
@@ -24,8 +23,9 @@ public class Sales extends Transaction {
     	String message;
     	ArrayList<Item> copyList = Inventory.getInventoryList();
     	
+    	
     	for (Item x : copyList) {
-    		if (x.getItemID()==productID && (double) x.getQuantity()> (double) quantity) {
+    		if (x.getItemID()==productID && (double) x.getQuantity()>= (double) quantity) {
     			saleList.put(x, quantity);
     			message = "Successfully Added";
     		} else {
@@ -86,31 +86,15 @@ public class Sales extends Transaction {
 //        return null;
     }
     
-    public void calculateSubtotal() {
-    	double itemCost;
-    	int intItemCost;
-    	double roundedCost;
-    	for (Entry<Item, Number> pair : saleList.entrySet()) {
-    		itemCost = pair.getKey().getPricePerUnit()*((double) pair.getValue());
-    		intItemCost = (int) itemCost*100;
-    		roundedCost = intItemCost/100.0;
-    		subTotal += roundedCost;
-    	}
-    }
-    
-    public void calculateTotal() {
-    	int totalInt;
-    	total = subTotal*taxRate;
-    	totalInt = (int) Math.ceil(total*100);
-    	total = totalInt/100;
-    }
+
 	public void processPayment() {
-		calculateSubtotal();
-		calculateTotal();
+		subTotal = calculateSubtotal(saleList);
+		total = calculateTotal(subTotal);
 		collectPayment();
 		FinishTransaction();
 	}
 	private void collectPayment() {
+		
 		register.addCash(total);
 	}
 	
@@ -119,24 +103,26 @@ public class Sales extends Transaction {
 			x.getKey().removeQuantity(x.getValue());
 		}
 	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public HashMap<Item, Number> getSaleList() {
+		return saleList;
 	}
 
 	@Override
-	public void printReceipts() {
+	public String printReceipts() {
 		
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd\tHH:mm:ss");
+		String formattedDateTime = myFormatObj.format(time);
+
 		
 		String purchases = String.format("%20s %20s %20s \r\n", "Item Name", "Quantity", "Unit Price");
 		for (Entry<Item,Number> x : saleList.entrySet()) {
 			purchases += String.format("%20s %20s %20s \r\n", x.getKey().getName(), x.getValue(), x.getKey().getPricePerUnit());
 		}
 		
+		receipt = "****** Sale ******* \n + Sale ID: "  + transactionID + "\n" + "\n" + purchases + "\n\n\n" + printTotals();
 		
-		
+		return receipt;
 	}
 
 }

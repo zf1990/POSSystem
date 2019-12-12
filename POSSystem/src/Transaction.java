@@ -4,11 +4,12 @@ import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Queue;
+import java.util.Map.Entry;
 
 public abstract class Transaction {
 
 	public User handler;
-	private LocalDateTime time;
+	protected LocalDateTime time;
 	public ArrayList<Item> items;
 	protected int transactionID;
 	static int transactionCounter = 0;
@@ -18,6 +19,8 @@ public abstract class Transaction {
 	public Register register;
 	protected double taxRate = 0.0625;
 	protected TransactionType transType;
+	protected boolean TransectionStatus;
+	String receipt;
 
 	public Transaction(Register register) {
 		this.register = register;
@@ -31,10 +34,10 @@ public abstract class Transaction {
 		return subTotal;
 	}
 
-	public void addPayment(Payment payment) {
-		payments.add(payment);
-	}
-	
+//	public void addPayment(Payment payment) {
+//		payments.add(payment);
+//	}
+//	
 	public double getTotal() {
 		return total;
 	}
@@ -44,16 +47,12 @@ public abstract class Transaction {
 		return items;
 	}
 
-	public ArrayList<Payment> getPayments() {
-		return payments;
-	}
+//	public ArrayList<Payment> getPayments() {
+//		return payments;
+//	}
 
 	public int getId() {
 		return transactionID;
-	}
-
-	public void setItems(ArrayList<Item> items) {
-		this.items = items;
 	}
 
 	public int getTransactionID() {
@@ -82,9 +81,6 @@ public abstract class Transaction {
 
 	public String printTotals() {
 		String output = "";
-		
-		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd\tHH:mm:ss");
-		String formattedDateTime = myFormatObj.format(time);
 
 
 		// Calculate tax and total
@@ -94,30 +90,57 @@ public abstract class Transaction {
 		int digits = Double.toString(total).length();
 		String format = "%" + digits + ".2f";
 		output += (toString() + "\n");
-		output += String.format("Subtotal: $" + format + "\n", subTotal);
-		output += String.format("Tax:      $" + format + "\n", taxRate*100 + "%");
-		output += String.format("Total:    $" + format + "\n", total);
+		output += String.format("Subtotal: $" + format + "\t", subTotal);
+		output += String.format("Tax:      $" + format + "\t", taxRate*100 + "%");
+		output += String.format("Total:    $" + format + "\t", total);
 
 		return output;
 	}
 
 	@Override
-	public abstract String toString();
+	public String toString() {
+		return receipt;
+	};
 
-	public abstract void updateInventory();
+
 	public void updateRegister() {
 		register.addTransaction(this);
-
 	}
+	
+    protected double calculateSubtotal(HashMap<Item,Number> _ItemList) {
+    	double itemCost;
+    	int intItemCost;
+    	double roundedCost;
+    	double _subTotal = 0;
+    	for (Entry<Item, Number> pair : _ItemList.entrySet()) {
+    		itemCost = pair.getKey().getPricePerUnit()*((double) pair.getValue());
+    		intItemCost = (int) itemCost*100;
+    		roundedCost = intItemCost/100.0;
+    		_subTotal += roundedCost;
+    	}
+    	
+    	return _subTotal;
+    }
+    
+    protected double calculateTotal(double _subttoTal) {
+    	int totalInt;
+    	double _total;
+    	_total = subTotal*taxRate;
+    	totalInt = (int) Math.ceil(_total*100);
+    	_total = totalInt/100;
+    	return _total;
+    }
 
-	public void FinishTransaction() {
+	protected void FinishTransaction() {
 		updateRegister();
 		updateInventory();
 		printReceipts();
 	}
+	
+	public abstract void updateInventory();
 
 	protected abstract void processPayment();
 
-	public abstract void printReceipts();
+	public abstract String printReceipts();
 
 }

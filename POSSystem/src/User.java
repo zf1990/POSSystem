@@ -66,6 +66,6 @@ public class User {
 	}
 
 	public String toString() {
-		return FirstName + "" + LastName + "" + PhoneNumber + "" + EmailAddress;
+		return FirstName + " " + LastName + " " + PhoneNumber + " " + EmailAddress;
 	}
 }
