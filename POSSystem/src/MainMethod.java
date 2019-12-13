@@ -13,20 +13,18 @@ import java.time.format.DateTimeFormatter;
  */
 public class MainMethod {
 	public static void main(String[] args) throws IOException {
-		String path = "salesReportByCashier.csv";
-		FileWriter csvWriter = new FileWriter(path, false);
-		BufferedWriter buffWriter = new BufferedWriter(csvWriter);
-		PrintWriter pw = new PrintWriter(buffWriter);
-		DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		Inventory myStore = new Inventory("MyStore");
 		
-		LocalDateTime time = LocalDateTime.now();
+		Item apple = new Item("Apple", "Riven", 50.6, 20.0, 2.99, 1, 100.0);
+		Item pear = new Item("Pear", "Fiora", 20.5, 10.0, 1.99, 2, 50.0);
+		Item Lotion = new Item("Hand Lotion", "Irelia", 50, 20, 2.99, 3, 50);
 		
-		pw.println("Cashier Name" + "," + "Trsansaction Type" + "," + "Transaction Amount" + "," + "Date" + "," + "Time\n");
-		pw.println(time.format(dayFormatter) + "," + time.format(timeFormatter));
+		Inventory.orderItems(3,20);
+		Inventory.orderReceived(3);
+
+		Inventory.printReports();
 		
-		pw.flush();
-		pw.close();
+		
 
 	}
 }

@@ -16,16 +16,15 @@ class ItemTest {
 	void testGetQuantity() {
 		Item apple = new Item("Apple", "Riven", 50.6, 20.0, 2.99, 1, 100.0);
 		Item pear = new Item("Pear", "Fiora", 20.5, 10.0, 1.99, 2, 50.0);
-		Inventory 
 		
-		assertEquals(20.5, pear.getQuantity());
-		assetEquals(20.0, )
+		assertEquals(50.6, apple.getQuantity());
 		
+		//assertEquals(2, Inventory.getInventoryList().size());
 	}
-
-	@Test
-	void testSetQuantity() {
-		fail("Not yet implemented");
-	}
-
 }
+
+//	@Test
+//	void testSetQuantity() {
+//		fail("Not yet implemented");
+//	}
+

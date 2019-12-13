@@ -15,12 +15,15 @@ public class Item {
 	private boolean isInt; //Determines weather the quantity is in the unit of weight or per unit.
 	
 	public Item(String name, String supplier, Number Quantity, Number Threshhold, double pricePerUnit, int ItemID, Number orderQuantity) {
+		
 		this.name = name;
 		this.supplier = supplier;
+		this.Quantity = Quantity;
 		this.Threshhold = Threshhold;
 		this.pricePerUnit = pricePerUnit;
 		this.ItemID = ItemID;
 		this.orderQuantity = orderQuantity;
+		this.orderingQuantity = 0;
 		addItems(this);
 		
 		if (Quantity instanceof Integer)
@@ -47,7 +50,13 @@ public class Item {
 	}
 
 	public Number getQuantity() {
-		return Quantity;
+		if (isInt == true) {
+			int _Quantity = Quantity.intValue();
+			return _Quantity;
+		} else {
+			double _Quantity2 = Quantity.doubleValue();
+			return _Quantity2;
+		}
 	}
 
 	public void setQuantity(Number quantity) {
@@ -55,7 +64,7 @@ public class Item {
 	}
 	
 	public void addQuantity(Number addingquantity) {
-		if (isInt = true) {
+		if (isInt == true) {
 			Quantity = (int)Quantity + (int)addingquantity;
 		} else {
 			Quantity = (double)Quantity + (double)addingquantity;
@@ -63,7 +72,7 @@ public class Item {
 	}
 	
 	public void removeQuantity(Number removeQuantity) {
-		if (isInt = true) {
+		if (isInt == true) {
 			Quantity = (int)Quantity - (int)removeQuantity;
 		} else {
 			Quantity = (double)Quantity - (double)removeQuantity;

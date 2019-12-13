@@ -13,7 +13,7 @@ public class Inventory {
 	private static ArrayList<Item> inventoryList;
 	private static HashMap<Integer, Item> itemMap;
 	private static int itemCount;
-	private String path;
+	private static String path;
 	
 	public Inventory(String storeName) {
 		this.name = name;
@@ -36,11 +36,26 @@ public class Inventory {
 		itemCount--;
 	}
 	
-	public void orderItems(Item item) {
+	public static void orderItems() { //Loop through the list and check the health on all items, if it is below the threshhold, order the item.
+		for (Item i : inventoryList) {
+			if ((double) i.getQuantity() < (double)i.getThreshhold()) {
+				i.setOrderingQuantity(i.getOrderQuantity());
+			}
+		}
+	}
+	
+	public static void orderItems(int itemID) { //Manually order item, automatically orders the amount of items originally specified.
+		Item item = itemMap.get(itemID);
 		item.setOrderingQuantity(item.getOrderQuantity());
 	}
 	
-	public void orderReceived(Item item) {
+	public static void orderItems(int itemID, Number orderQuantity) { //
+		Item item = itemMap.get(itemID);
+		item.setOrderingQuantity(orderQuantity);
+	}
+	
+	public static void orderReceived(int itemID) {
+		Item item = itemMap.get(itemID);
 		item.addQuantity(item.getOrderingQuantity());
 		item.setOrderingQuantity(0);
 	}
@@ -58,7 +73,7 @@ public class Inventory {
 //		return index;
 //	}
 	
-	public void printReports() {
+	public static void printReports() {
 		try {
 			FileWriter csvWriter = new FileWriter(path, false);
 			BufferedWriter buffWriter = new BufferedWriter(csvWriter);
