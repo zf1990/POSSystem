@@ -25,12 +25,15 @@ public class User {
 		this.PhoneNumber = phoneNumber;
 		this.role = role; 
 		this.UserID = UserID;
-		login = new Login(); //Dummy line to make sure the class is initiated.
 		
 		addtoCollections();
 		
 	}
 	private void addtoCollections() {
+		if (login == null) {
+			login = new Login();
+		}
+		
 		Login.addUser(this);
 	}
 	public static void removeUser(int _UserID) {

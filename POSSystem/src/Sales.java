@@ -25,7 +25,7 @@ public class Sales extends Transaction {
     	
     	
     	for (Item x : copyList) {
-    		if (x.getItemID()==productID && (double) x.getQuantity()>= (double) quantity) {
+    		if (x.getItemID()==productID && x.getQuantity().doubleValue() >= quantity.doubleValue()) {
     			saleList.put(x, quantity);
     			message = "Successfully Added";
     		} else {
@@ -120,7 +120,7 @@ public class Sales extends Transaction {
 			purchases += String.format("%20s %20s %20s \r\n", x.getKey().getName(), x.getValue(), x.getKey().getPricePerUnit());
 		}
 		
-		receipt = "****** Sale ******* \n + Sale ID: "  + transactionID + "\n" + "\n" + purchases + "\n\n\n" + printTotals();
+		receipt = "\t\t\t****** Sale ******* \nTime: " + formattedDateTime + "\nSale ID: "  +transactionID + "\n" + "\n" + purchases + "\n\n" + printTotals();
 		
 		return receipt;
 	}

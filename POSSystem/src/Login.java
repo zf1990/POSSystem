@@ -9,11 +9,13 @@ public class Login {
 	private boolean loggedIn;
 	
 	public Login() {
-		loggedInUser = null;
-		userList = new ArrayList<User>();
-		loginInfoLookup = new HashMap<String, String>();
-		userLookup = new HashMap<String, User>();
-		userIdLookUp = new HashMap<Integer, User>();
+		
+		if (userList == null) {
+			userList = new ArrayList<User>();
+			loginInfoLookup = new HashMap<String, String>();
+			userLookup = new HashMap<String, User>();
+			userIdLookUp = new HashMap<Integer, User>();
+		}
 	}
 
 	public static void addUser(User person) {

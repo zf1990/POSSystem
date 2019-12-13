@@ -101,9 +101,8 @@ public abstract class Transaction {
 		// Set up ability to format print statements right so everything aligns
 		int digits = Double.toString(total).length();
 		String format = "%" + digits + ".2f";
-		output += (toString() + "\n");
 		output += String.format("Subtotal: $" + format + "\t", subTotal);
-		output += String.format("Tax:      $" + format + "\t", taxRate*100 + "%");
+		output += String.format("Tax:      $" + format + "\t", taxRate*subTotal);
 		output += String.format("Total:    $" + format + "\t", total);
 
 		return output;
@@ -129,7 +128,7 @@ public abstract class Transaction {
     	double roundedCost;
     	double _subTotal = 0;
     	for (Entry<Item, Number> pair : _ItemList.entrySet()) {
-    		itemCost = pair.getKey().getPricePerUnit()*((double) pair.getValue());
+    		itemCost = pair.getKey().getPricePerUnit()*(pair.getValue().doubleValue());
     		intItemCost = (int) itemCost*100;
     		roundedCost = intItemCost/100.0;
     		_subTotal += roundedCost;
@@ -141,7 +140,7 @@ public abstract class Transaction {
     protected double calculateTotal(double _subttoTal) {
     	int totalInt;
     	double _total;
-    	_total = subTotal*taxRate;
+    	_total = subTotal*(1+taxRate);
     	totalInt = (int) Math.ceil(_total*100);
     	_total = totalInt/100;
     	return _total;
