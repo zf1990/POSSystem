@@ -1,5 +1,8 @@
+package POSSystem.src;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+import POSSystem.src.Item;
 import org.junit.jupiter.api.Test;
 
 class ItemTest {

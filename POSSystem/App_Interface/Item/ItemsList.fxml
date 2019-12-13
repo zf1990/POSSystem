@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App_Interface.Item.ItemsController">
+   <children>
+      <Pane prefHeight="200.0" prefWidth="1300.0" style="-fx-background-color: orange;">
+         <children>
+            <ImageView fitHeight="94.0" fitWidth="99.0" layoutX="1040.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resource/Images/user.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="Username_Label" layoutX="1133.0" layoutY="80.0" text="USERNAME" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="1180.0" layoutY="110.0" text="Logout?" textFill="#00bbff">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="localDateTime" graphicTextGap="0.0" layoutX="75.0" layoutY="163.0" text="Fri  Dec 13 2019  00:00 PM" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="30.0" fitWidth="28.0" layoutX="43.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resource/Images/date-to-16.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="44.0" layoutY="7.0" prefHeight="75.0" prefWidth="264.0" text="ITEMS" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="63.0" />
+               </font>
+            </Label>
+            <Button fx:id="Logout" layoutX="1174.0" layoutY="106.0" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="28.0" prefWidth="76.0" style="-fx-background-color: transparent;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </Pane>
+      <GridPane alignment="CENTER" hgap="3.0" layoutX="15.0" layoutY="210.0" prefHeight="350.0" prefWidth="75.0" vgap="3.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="Sales_Button" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="50.0" prefWidth="75.0" stylesheets="@../resource/styles/homescreen.css" text="SALES" textAlignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="40.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/Images/sales-performance.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="Inventory_Button" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="50.0" prefWidth="75.0" stylesheets="@../resource/styles/homescreen.css" text="INVENTORY" GridPane.rowIndex="3">
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="40.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/Images/report-file.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="Home_Button" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="5.0" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="50.0" prefWidth="75.0" stylesheets="@../resource/styles/homescreen.css" text="HOME" textAlignment="CENTER" wrapText="true">
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="40.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/Images/home-48.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font>
+            </Button>
+            <Button fx:id="POS_Button" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="1.0" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="64.0" prefWidth="75.0" stylesheets="@../resource/styles/homescreen.css" text="POS" textAlignment="CENTER" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="40.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/Images/pos-system.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="User_Button" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="1.0" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="64.0" prefWidth="75.0" stylesheets="@../resource/styles/homescreen.css" text="USER" textAlignment="CENTER" GridPane.rowIndex="4">
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="40.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/Images/user-folder.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+      <TableView fx:id="tableView" layoutX="121.0" layoutY="240.0" prefHeight="403.0" prefWidth="1160.0">
+         <columns>
+            <TableColumn fx:id="columnname" prefWidth="135.5380630493164" text="Name" />
+            <TableColumn fx:id="columnsupplier" prefWidth="126.46197509765625" text="Supplier" />
+            <TableColumn fx:id="columnQuatity" prefWidth="157.63446044921875" text="Quantity" />
+            <TableColumn fx:id="columnThreshold" prefWidth="140.66143798828125" text="Threshold" />
+            <TableColumn fx:id="columnpricePerUnit" prefWidth="213.18411254882812" text="Price per Unit" />
+            <TableColumn fx:id="columnItemID" minWidth="0.0" prefWidth="164.71337890625" text="ItemID" />
+            <TableColumn fx:id="columnorderQuantity" prefWidth="103.6461181640625" text="Order Quantity" />
+         </columns>
+      </TableView>
+      <HBox centerShape="false" fillHeight="false" layoutX="119.0" layoutY="669.0" prefHeight="35.0" prefWidth="1160.0" scaleShape="false">
+         <children>
+            <TextField fx:id="Name_T" prefHeight="30.0" prefWidth="134.0" promptText="Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+            <PasswordField fx:id="Supplier_T" prefHeight="30.0" prefWidth="128.0" promptText="Supplier">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </PasswordField>
+            <TextField fx:id="Quantity_Textfield" prefHeight="30.0" prefWidth="156.0" promptText="Quantity">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField fx:id="Thresshold_Textfield" cacheShape="false" centerShape="false" focusTraversable="false" prefHeight="30.0" prefWidth="138.0" promptText="Threshold">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField fx:id="Price_Textfield" prefHeight="30.0" prefWidth="208.0" promptText="Price">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField fx:id="ItemID_Textfield" prefHeight="30.0" prefWidth="158.0" promptText="ItemID">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+            <TextField fx:id="OrderQuantity_Textfield" prefHeight="30.0" prefWidth="100.0" promptText="OrderQuantity">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <GridPane alignment="CENTER" hgap="500.0" layoutX="334.0" layoutY="743.0" prefHeight="85.0" prefWidth="795.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.32965087890625" minWidth="10.0" prefWidth="140.51763916015625" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.7572021484375" minWidth="10.0" prefWidth="185.98236083984375" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="228.66943359375" minHeight="10.0" prefHeight="221.03030395507812" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="AddUser_Button" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="85.0" prefWidth="130.0" stylesheets="@../resource/styles/homescreen.css" text="ADD ITEM">
+               <graphic>
+                  <ImageView fitHeight="100.0" fitWidth="50.0" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/Images/user-32.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="deleteButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" mnemonicParsing="false" onAction="#handleButtonClicks" prefHeight="85.0" prefWidth="164.0" stylesheets="@../resource/styles/homescreen.css" text="DELETE" GridPane.columnIndex="1">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="100.0" opacity="0.29" preserveRatio="true">
+                     <image>
+                        <Image url="@../resource/Images/user-32.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

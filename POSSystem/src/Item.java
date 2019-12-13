@@ -1,4 +1,6 @@
-/* 
+package POSSystem.src;
+
+/*
  * POS System
  * Zhou Fang, Anh Nguyen, Fadi Bchara
  * 12/13/2019
