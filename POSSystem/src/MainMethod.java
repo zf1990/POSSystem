@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
@@ -8,14 +12,21 @@ import java.time.format.DateTimeFormatter;
  * 12/13/2019
  */
 public class MainMethod {
-	public static void main(String[] args) {
-		Inventory myStore = new Inventory("mystore");
-		ArrayList<Item> list1 = new ArrayList<Item>();
-		Item apple = new Item("Fuji apple", "mySupplier", 50.9, 20.0, 3.99, 1, 100.0);
+	public static void main(String[] args) throws IOException {
+		String path = "salesReportByCashier.csv";
+		FileWriter csvWriter = new FileWriter(path, false);
+		BufferedWriter buffWriter = new BufferedWriter(csvWriter);
+		PrintWriter pw = new PrintWriter(buffWriter);
+		DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 		
-		list1.add(apple);
-		apple.setThreshhold(15.0);
+		LocalDateTime time = LocalDateTime.now();
 		
-		System.out.println(list1.get(0).getThreshhold());
+		pw.println("Cashier Name" + "," + "Trsansaction Type" + "," + "Transaction Amount" + "," + "Date" + "," + "Time\n");
+		pw.println(time.format(dayFormatter) + "," + time.format(timeFormatter));
+		
+		pw.flush();
+		pw.close();
+
 	}
 }

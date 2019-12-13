@@ -110,8 +110,8 @@ public class Register {
 			pw.println(x.getUser().GetFirstName() + " " + x.getUser().GetLastName() + "," +
 					x.getTransType().toString() + "," +
 					x.getTotal() + "," +
-					x.time.format(dayFormatter) + "," +
-					x.time.format(timeFormatter) + "\n"
+					x.getTime().format(dayFormatter) + "," +
+					x.getTime().format(timeFormatter) + "\n"
 					);
 		}
 		

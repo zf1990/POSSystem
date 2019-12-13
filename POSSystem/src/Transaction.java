@@ -113,6 +113,10 @@ public abstract class Transaction {
 	public String toString() {
 		return receipt;
 	};
+	
+	public LocalDateTime getTime() {
+		return time;
+	}
 
 
 	public void updateRegister() {

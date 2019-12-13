@@ -10,12 +10,12 @@ public class User {
 	private String LastName;
 	private String EmailAddress;
 	private String PhoneNumber;
-	private Roles role;
+	private String role; //Enum did not work properly in the UI...
 	public Login login;
-	private int UserID;
+	private int UserID; //Users have to manually set this value.  Have to be unique
 
 	public User(String userName, String password, String firstName, String lastName, String emailAddress,
-			String phoneNumber, Roles role, int UserID) {
+			String phoneNumber, String role, int UserID) {
 
 		this.UserName = userName;
 		this.Password = password;
@@ -23,7 +23,7 @@ public class User {
 		this.LastName = lastName;
 		this.EmailAddress = emailAddress;
 		this.PhoneNumber = phoneNumber;
-		this.role = role;
+		this.role = role; 
 		this.UserID = UserID;
 		login = new Login(); //Dummy line to make sure the class is initiated.
 		
@@ -75,5 +75,47 @@ public class User {
 
 	public String toString() {
 		return FirstName + " " + LastName + " " + PhoneNumber + " " + EmailAddress;
+	}
+	public String getUserName() {
+		return UserName;
+	}
+	public void setUserName(String userName) {
+		UserName = userName;
+	}
+	public String getFirstName() {
+		return FirstName;
+	}
+	public void setFirstName(String firstName) {
+		FirstName = firstName;
+	}
+	public String getEmailAddress() {
+		return EmailAddress;
+	}
+	public void setEmailAddress(String emailAddress) {
+		EmailAddress = emailAddress;
+	}
+	public String getPhoneNumber() {
+		return PhoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		PhoneNumber = phoneNumber;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public Login getLogin() {
+		return login;
+	}
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+	public String getPassword() {
+		return Password;
+	}
+	public void setUserID(int userID) {
+		UserID = userID;
 	}
 }
