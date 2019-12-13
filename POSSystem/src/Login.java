@@ -38,9 +38,7 @@ public class Login {
 		} else {
 			message = "User not found. Check User ID and try again.";
 		}
-		
 		return message;
-		
 	}
 	
 	

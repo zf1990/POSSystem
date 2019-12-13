@@ -1,12 +1,15 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.*;
+import java.time.format.DateTimeFormatter;
 
 public class Register {
 	private double registerTransactionAmount;
 	private final int RegisterID;
 	ArrayList<Transaction> registerTransactions;
 	static ArrayList<Transaction> overallTransactions = new ArrayList<Transaction>();
+	static HashMap<Integer, Double> cashierSales; //Cashier ID and the Amount of sales
 	private User currentUser;
 	private double cashAmount;
 	private Login loginModule;
@@ -17,7 +20,7 @@ public class Register {
 		registerTransactions = new ArrayList<Transaction>();
 		registerTransactionAmount = 0.00;
 		cashAmount = 0.00;
-		
+		cashierSales = new HashMap<Integer, Double>();
 	}
 	
 	public Register(int RegisterID, double existingCash) {
@@ -25,6 +28,7 @@ public class Register {
 		registerTransactions = new ArrayList<Transaction>();
 		registerTransactionAmount = 0.00;
 		cashAmount = existingCash;
+		cashierSales = new HashMap<Integer, Double>();
 	}
 	
 	public void initiateLogin(String userName, String password) {
@@ -50,15 +54,24 @@ public class Register {
 	
 	public void updateAmount(Transaction toBeUpdated) {
 		if (toBeUpdated instanceof Sales) {
-			registerTransactionAmount = registerTransactionAmount + toBeUpdated.total;
+			registerTransactionAmount = registerTransactionAmount + toBeUpdated.getTotal();
 		} else {
-			registerTransactionAmount = registerTransactionAmount - toBeUpdated.total;
+			registerTransactionAmount = registerTransactionAmount - toBeUpdated.getTotal();
 		}
 	}
 
 	public void updateCashierReport (Transaction trans) {
-		HashMap <String, Integer > trans1 = new HashMap<>();
-		// Zhou to add cashier class here 
+		if (trans.getTransType() == TransactionType.Sales) {
+			double saleAmount = trans.getTotal();
+			int userID = trans.getUser().getUserID();
+			
+			if (cashierSales.containsKey(userID)) {
+				double previousAmount = cashierSales.get(userID);
+				cashierSales.replace(userID, previousAmount + saleAmount);
+			} else {
+				cashierSales.put(userID, saleAmount);
+			}
+		}
 	}
 	
 	public Transaction findTransaction(int TransactionID) {
@@ -78,7 +91,35 @@ public class Register {
 			return null;
 		
 	}
-
+	
+	public double getTotalSaleAmountByCashier(int userID) {
+		double saleAmount = cashierSales.getOrDefault(userID, 0.00); //Default to make sure that a new Cashier who have not made sales will have a chance to do so.
+		return saleAmount;
+	}
+	
+	public static void printSalesReport() throws IOException {
+		String path = "salesReportByCashier.csv";
+		FileWriter csvWriter = new FileWriter(path, false);
+		BufferedWriter buffWriter = new BufferedWriter(csvWriter);
+		PrintWriter pw = new PrintWriter(buffWriter);
+		DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		
+		pw.println("Cashier Name" + "," + "Trsansaction Type" + "," + "Transaction Amount" + "," + "Date" + "," + "Time\n");
+		for (Transaction x : overallTransactions) {
+			pw.println(x.getUser().GetFirstName() + " " + x.getUser().GetLastName() + "," +
+					x.getTransType().toString() + "," +
+					x.getTotal() + "," +
+					x.time.format(dayFormatter) + "," +
+					x.time.format(timeFormatter) + "\n"
+					);
+		}
+		
+		pw.flush();
+		pw.close();
+		
+	}
+	
 	public User getCurrentUser() {
 		return currentUser;
 	}
@@ -90,7 +131,7 @@ public class Register {
 	public double getRegisterTransactionAmount() {
 		return registerTransactionAmount;
 	}
-
+	
 	public int getRegisterID() {
 		return RegisterID;
 	}

@@ -15,7 +15,7 @@ public abstract class Transaction {
 	static int transactionCounter = 0;
 	protected double total;
 	protected double subTotal;
-	protected ArrayList<Payment> payments; // for when we need to do returns
+	//protected ArrayList<Payment> payments; // for when we need to do returns
 	public Register register;
 	protected double taxRate = 0.0625;
 	protected TransactionType transType;
@@ -67,12 +67,24 @@ public abstract class Transaction {
 		this.total = total;
 	}
 
-	public void setPayments(ArrayList<Payment> payments) {
-		this.payments = payments;
-	}
+//	public void setPayments(ArrayList<Payment> payments) {
+//		this.payments = payments;
+//	}
 
 	public User getUser() {
 		return handler;
+	}
+
+	public static int getTransactionCounter() {
+		return transactionCounter;
+	}
+
+	public TransactionType getTransType() {
+		return transType;
+	}
+
+	public void setTransType(TransactionType transType) {
+		this.transType = transType;
 	}
 
 	public void setUser(User person) {

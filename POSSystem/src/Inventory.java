@@ -71,13 +71,12 @@ public class Inventory {
 						inventoryList.get(i).getQuantity().toString() + "," +
 						inventoryList.get(i).getThreshhold().toString() + "," +
 						inventoryList.get(i).getSupplier() + "," +
-						inventoryList.get(i).getOrderingQuantity().toString()
+						inventoryList.get(i).getOrderingQuantity().toString() + "\n"
 						);
 			}
 			pw.flush();
 			pw.close();
 		} catch (IOException e) {
-			e.printStackTrace();
 			System.out.println("Exception occured.  File not saved.");
 		}
 	}

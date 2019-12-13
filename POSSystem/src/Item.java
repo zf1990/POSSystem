@@ -5,12 +5,12 @@
  */
 public class Item {
 	private String name;
-	private Number Quantity; //Using a number property to indicate it can be either 
-	private Number Threshhold; 
+	private Number Quantity; //Using a number property to indicate it can be either be a whole number or be of the unit for a weight such as lb.
+	private Number Threshhold; //The threshhold number that if fallen below of, will require additional order.
 	private double pricePerUnit;
 	private int ItemID;
 	private Number orderQuantity; //The number to be ordered should the quantity falls below threshold
-	private Number orderingQuantity;
+	private Number orderingQuantity; //The quantity of which this particular item is currently getting ordered.
 	private String supplier;
 	private boolean isInt; //Determines weather the quantity is in the unit of weight or per unit.
 	

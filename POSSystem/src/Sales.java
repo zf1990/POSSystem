@@ -13,7 +13,7 @@ public class Sales extends Transaction {
     public Sales(Register register){
     	super(register);
         this.transactionID = transactionID;
-        payments = new ArrayList<>();
+        //payments = new ArrayList<>();
         items = new ArrayList<>();
         saleList = new HashMap<Item, Number>();
         transType = TransactionType.Sales;
