@@ -10,12 +10,9 @@ public class User {
 	private String LastName;
 	private String EmailAddress;
 	private String PhoneNumber;
-	private String ChangeUserName;
-	private String ChangePassword;
 	private Roles role;
+	public Login login;
 	private int UserID;
-	private static ArrayList<User> users = new ArrayList<User>();
-	private static HashMap<Integer, User> userDict = new HashMap<Integer,User>();
 
 	public User(String userName, String password, String firstName, String lastName, String emailAddress,
 			String phoneNumber, Roles role, int UserID) {
@@ -28,18 +25,16 @@ public class User {
 		this.PhoneNumber = phoneNumber;
 		this.role = role;
 		this.UserID = UserID;
+		login = new Login(); //Dummy line to make sure the class is initiated.
 		
 		addtoCollections();
 		
 	}
 	private void addtoCollections() {
-		users.add(this);
-		userDict.put(UserID, this);
+		Login.addUser(this);
 	}
 	public static void removeUser(int _UserID) {
-		User person = userDict.get(_UserID);
-		userDict.remove(person);
-		users.remove(person);
+		Login.removeUser(_UserID);
 	}
 
 //	public void UserDictionary() {
@@ -54,7 +49,7 @@ public class User {
 //
 //	}
 
-	public int UserID() {
+	public int getUserID() {
 		return this.UserID;
 	}
 
@@ -65,6 +60,10 @@ public class User {
 	public String GetPassword() {
 		return this.Password;
 	}
+	
+	public void setPassword(String password) {
+		this.Password = password;
+	}
 
 	public String GetFirstName() {
 		return this.FirstName;
@@ -72,18 +71,6 @@ public class User {
 
 	public String GetLastName() {
 		return this.LastName;
-	}
-
-	public String ChangeUserName(String UserName) {
-		return this.ChangeUserName;
-	}
-
-	public String ChangePassword(String Password) {
-		return this.ChangePassword;
-	}
-	
-	public static ArrayList<User> getUserList() {
-		return users;
 	}
 
 	public String toString() {

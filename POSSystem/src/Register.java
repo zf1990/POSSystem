@@ -17,7 +17,6 @@ public class Register {
 		registerTransactions = new ArrayList<Transaction>();
 		registerTransactionAmount = 0.00;
 		cashAmount = 0.00;
-		loginModule = new Login();
 		
 	}
 	
@@ -28,15 +27,10 @@ public class Register {
 		cashAmount = existingCash;
 	}
 	
-//	public void createUser(String userName, String password, String firstName, String lastName, String emailAddress,
-//			String phoneNumber, Roles role) {
-//		User Dummyuser = new User(userName, password, firstName, lastName, emailAddress, phoneNumber, role);
-//	}
-	
 	public void initiateLogin(String userName, String password) {
 		loginModule = new Login();
 		loginModule.checkLogin(userName, password);
-		currentUser = loginModule.getLoggedInUser(userName);
+		currentUser = loginModule.getLoggedInUser();
 	}
 	
 	public void addTransaction(Transaction transaction) {

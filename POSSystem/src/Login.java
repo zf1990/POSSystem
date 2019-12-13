@@ -1,33 +1,54 @@
 import java.util.*;
 
 public class Login {
-	private ArrayList<User> userList;
-	private HashMap<String, String> loginInfo;
-	private HashMap<String, User> userLookup;
+	private static ArrayList<User> userList;
+	private static HashMap<String, String> loginInfoLookup;
+	private static HashMap<String, User> userLookup;
+	private static HashMap<Integer, User> userIdLookUp;
 	private User loggedInUser;
 	private boolean loggedIn;
 	
 	public Login() {
-		
-		loginInfo = new HashMap<String, String>();
-		userLookup = new HashMap<String, User>();
-		populateDictionaries();
 		loggedInUser = null;
+		userList = new ArrayList<User>();
+		loginInfoLookup = new HashMap<String, String>();
+		userLookup = new HashMap<String, User>();
+		userIdLookUp = new HashMap<Integer, User>();
 	}
-	private void populateDictionaries() {
-		for (User person: userList) {
-			loginInfo.put(person.GetUserName(),person.GetPassword());
-			userLookup.put(person.GetUserName(),person);
+
+	public static void addUser(User person) {
+		userList.add(person);
+		loginInfoLookup.put(person.GetUserName(),person.GetPassword());
+		userLookup.put(person.GetUserName(),person);
+		userIdLookUp.put(person.getUserID(), person);
+	}
+	
+	public static String removeUser(int ID) {
+		
+		String message = "";
+		if (userIdLookUp.containsKey(ID)) {
+			User person = userIdLookUp.get(ID);
+			String userName = person.GetUserName();
+			
+			userList.remove(person);
+			loginInfoLookup.remove(userName);
+			userLookup.remove(userName);
+			userIdLookUp.remove(ID);
+			message = "User Removed";
+		} else {
+			message = "User not found. Check User ID and try again.";
 		}
+		
+		return message;
+		
 	}
 	
 	
 	public String checkLogin(String _userName, String _password) {
-		userList = User.getUserList();
 		String message = "";
 		loggedIn = false;
-			if (loginInfo.containsKey(_userName)) {
-				if (loginInfo.get(_userName).equals(_password)) {
+			if (loginInfoLookup.containsKey(_userName)) {
+				if (loginInfoLookup.get(_userName).equals(_password)) {
 					message = "login successful";
 					loggedInUser = userLookup.get(_userName);
 					loggedIn = true;
@@ -41,8 +62,8 @@ public class Login {
 	
 	public String resetPassword(String _userName, String resetPassword, String resetPassword_1) {
 		String message = "";
-		if (loginInfo.containsKey(_userName) && resetPassword.equals(resetPassword_1)) {
-			userLookup.get(_userName).ChangePassword(resetPassword);
+		if (loginInfoLookup.containsKey(_userName) && resetPassword.equals(resetPassword_1)) {
+			userLookup.get(_userName).setPassword(resetPassword);
 			message = "Password set successfully.";
 		} else {
 			message = "Password reset failed!";
@@ -51,8 +72,20 @@ public class Login {
 		return message;
 	}
 	
-	public User getLoggedInUser(String _userName) {
-		return userLookup.get(_userName);
+	public ArrayList<User> getUserList() {
+		return userList;
+	}
+	public static HashMap<String, String> getLoginInfo() {
+		return loginInfoLookup;
+	}
+	public static HashMap<String, User> getUserLookup() {
+		return userLookup;
+	}
+	public User getLoggedInUser() {
+		return loggedInUser;
+	}
+	public boolean isLoggedIn() {
+		return loggedIn;
 	}
 
 }
