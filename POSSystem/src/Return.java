@@ -1,3 +1,6 @@
+package POSSystem.src;
+
+import POSSystem.src.Transaction;
 
 import javax.swing.*;
 import java.text.DateFormatSymbols;

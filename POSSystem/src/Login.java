@@ -1,3 +1,5 @@
+package POSSystem.src;
+
 import java.util.*;
 
 public class Login {

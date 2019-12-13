@@ -1,3 +1,4 @@
+package POSSystem.src;
 
 import java.util.ArrayList;
 import java.util.HashMap;
