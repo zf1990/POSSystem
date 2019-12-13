@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.time.LocalDateTime; // Import the LocalDateTime class
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public abstract class Transaction {
 	protected TransactionType transType;
 	protected boolean TransectionStatus;
 	String receipt;
+	String path;
 
 	public Transaction(Register register) {
 		this.register = register;
@@ -28,6 +30,7 @@ public abstract class Transaction {
 		time = LocalDateTime.now();
 		items = new ArrayList<Item>();
 		transactionID = transactionCounter++;
+		path = "Receipt" + transactionID + ".txt";
 	}
 
 	public double getSubTotal() {

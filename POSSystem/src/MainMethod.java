@@ -46,7 +46,7 @@ public class MainMethod {
 		
 		System.out.println(sale1.receipt);
 		
-		Inventory.printReports();		
+		Inventory.printReports();
 		
 		
 	}
