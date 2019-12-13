@@ -105,13 +105,13 @@ public class Register {
 		DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 		
-		pw.println("Cashier Name" + "," + "Trsansaction Type" + "," + "Transaction Amount" + "," + "Date" + "," + "Time\n");
+		pw.println("Cashier Name" + "," + "Trsansaction Type" + "," + "Transaction Amount" + "," + "Date" + "," + "Time");
 		for (Transaction x : overallTransactions) {
 			pw.println(x.getUser().GetFirstName() + " " + x.getUser().GetLastName() + "," +
 					x.getTransType().toString() + "," +
 					x.getTotal() + "," +
 					x.getTime().format(dayFormatter) + "," +
-					x.getTime().format(timeFormatter) + "\n"
+					x.getTime().format(timeFormatter)
 					);
 		}
 		

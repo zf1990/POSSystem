@@ -71,7 +71,7 @@ public class Inventory {
 						inventoryList.get(i).getQuantity().toString() + "," +
 						inventoryList.get(i).getThreshhold().toString() + "," +
 						inventoryList.get(i).getSupplier() + "," +
-						inventoryList.get(i).getOrderingQuantity().toString() + "\n"
+						inventoryList.get(i).getOrderingQuantity().toString()
 						);
 			}
 			pw.flush();

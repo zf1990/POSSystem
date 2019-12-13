@@ -54,11 +54,11 @@ public class User {
 	}
 
 	public String GetUserName() {
-		return this.UserName;
+		return UserName;
 	}
 
 	public String GetPassword() {
-		return this.Password;
+		return Password;
 	}
 	
 	public void setPassword(String password) {
@@ -80,25 +80,25 @@ public class User {
 		return UserName;
 	}
 	public void setUserName(String userName) {
-		UserName = userName;
+		this.UserName = userName;
 	}
 	public String getFirstName() {
 		return FirstName;
 	}
 	public void setFirstName(String firstName) {
-		FirstName = firstName;
+		this.FirstName = firstName;
 	}
 	public String getEmailAddress() {
 		return EmailAddress;
 	}
 	public void setEmailAddress(String emailAddress) {
-		EmailAddress = emailAddress;
+		this.EmailAddress = emailAddress;
 	}
 	public String getPhoneNumber() {
 		return PhoneNumber;
 	}
 	public void setPhoneNumber(String phoneNumber) {
-		PhoneNumber = phoneNumber;
+		this.PhoneNumber = phoneNumber;
 	}
 	public String getRole() {
 		return role;
@@ -116,6 +116,6 @@ public class User {
 		return Password;
 	}
 	public void setUserID(int userID) {
-		UserID = userID;
+		this.UserID = userID;
 	}
 }
