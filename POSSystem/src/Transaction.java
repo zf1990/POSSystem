@@ -102,8 +102,8 @@ public abstract class Transaction {
 		int digits = Double.toString(total).length();
 		String format = "%" + digits + ".2f";
 		output += String.format("Subtotal: $" + format + "\t", subTotal);
-		output += String.format("Tax:      $" + format + "\t", taxRate*subTotal);
-		output += String.format("Total:    $" + format + "\t", total);
+		output += String.format("Tax: $" + format + "\t", Math.ceil(taxRate*subTotal*100)/100.0);
+		output += String.format("Total: $" + format + "\t", total);
 
 		return output;
 	}
@@ -124,15 +124,13 @@ public abstract class Transaction {
 	
     protected double calculateSubtotal(HashMap<Item,Number> _ItemList) {
     	double itemCost;
-    	int intItemCost;
-    	double roundedCost;
-    	double _subTotal = 0;
+    	double _subTotal = 0.0;
     	for (Entry<Item, Number> pair : _ItemList.entrySet()) {
     		itemCost = pair.getKey().getPricePerUnit()*(pair.getValue().doubleValue());
-    		intItemCost = (int) itemCost*100;
-    		roundedCost = intItemCost/100.0;
-    		_subTotal += roundedCost;
+    		_subTotal += itemCost;
     	}
+    	int _subtotal1 = (int) (_subTotal*100.0);
+    	_subTotal = _subtotal1/100.0;
     	
     	return _subTotal;
     }
@@ -142,7 +140,7 @@ public abstract class Transaction {
     	double _total;
     	_total = subTotal*(1+taxRate);
     	totalInt = (int) Math.ceil(_total*100);
-    	_total = totalInt/100;
+    	_total = totalInt/100.00;
     	return _total;
     }
 

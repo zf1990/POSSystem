@@ -12,7 +12,6 @@ public class Sales extends Transaction {
 
     public Sales(Register register){
     	super(register);
-        this.transactionID = transactionID;
         //payments = new ArrayList<>();
         items = new ArrayList<>();
         saleList = new HashMap<Item, Number>();
@@ -20,7 +19,7 @@ public class Sales extends Transaction {
     }
 
     public void addItem(int productID, Number quantity){
-    	String message;
+    	String message;//Message should be linked to a label in GUI.
     	ArrayList<Item> copyList = Inventory.getInventoryList();
     	
     	
@@ -34,20 +33,23 @@ public class Sales extends Transaction {
     	}
     }
 
-    public void removeItem(Item itemRemoved, Number toBeRemoved){
-    	String message;
-    	if ((double) toBeRemoved> (double) saleList.get(itemRemoved)) {
+    public void removeItem(int productID, Number toBeRemoved){
+    	
+    	Item itemRemoved = Inventory.getItemMap().get(productID);
+    	
+    	String message; //Message should be linked to a label in GUI.
+    	if (toBeRemoved.doubleValue() > saleList.get(itemRemoved).doubleValue()) {
     		message = "You can't remove more items than you have checked out!";
     	} else if (toBeRemoved == saleList.get(itemRemoved)) {
     		saleList.remove(itemRemoved);
     		message = "Item removed";
     	} else {
     		if (toBeRemoved instanceof Integer) {
-    			int newQuan = (int) saleList.get(itemRemoved) - (int) toBeRemoved;
+    			int newQuan = (int) (saleList.get(itemRemoved).doubleValue() - toBeRemoved.doubleValue());
     			saleList.replace(itemRemoved, newQuan);
     			message = "Quantity decreased to " + newQuan + ".";
     		} else {
-    			double newQuan = (double) saleList.get(itemRemoved) - (double) toBeRemoved;
+    			double newQuan = saleList.get(itemRemoved).doubleValue() - toBeRemoved.doubleValue();
     			saleList.replace(itemRemoved, newQuan);
     			message = "Quantity decreased to " + newQuan + ".";
     		}
