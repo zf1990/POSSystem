@@ -1,7 +1,6 @@
 
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
+import java.util.HashMap;
 
 public class User {
 
@@ -13,12 +12,13 @@ public class User {
 	private String PhoneNumber;
 	private String ChangeUserName;
 	private String ChangePassword;
-	private int UserId;
 	private Roles role;
-	private static ArrayList<User> users;
+	private int UserID;
+	private static ArrayList<User> users = new ArrayList<User>();
+	private static HashMap<Integer, User> userDict = new HashMap<Integer,User>();
 
 	public User(String userName, String password, String firstName, String lastName, String emailAddress,
-			String phoneNumber, Roles role) {
+			String phoneNumber, Roles role, int UserID) {
 
 		this.UserName = userName;
 		this.Password = password;
@@ -27,23 +27,35 @@ public class User {
 		this.EmailAddress = emailAddress;
 		this.PhoneNumber = phoneNumber;
 		this.role = role;
+		this.UserID = UserID;
+		
+		addtoCollections();
+		
+	}
+	private void addtoCollections() {
 		users.add(this);
+		userDict.put(UserID, this);
+	}
+	public static void removeUser(int _UserID) {
+		User person = userDict.get(_UserID);
+		userDict.remove(person);
+		users.remove(person);
 	}
 
-	public void UserDictionary() {
-		Dictionary<String, Integer> UserDictionary = new Hashtable<String, Integer>();
+//	public void UserDictionary() {
+//		Dictionary<String, Integer> UserDictionary = new Hashtable<String, Integer>();
+//
+//		UserDictionary.put(UserName, UserId);
+//		UserDictionary.put(Password, UserId);
+//		UserDictionary.put(FirstName, UserId);
+//		UserDictionary.put(LastName, UserId);
+//		UserDictionary.put(PhoneNumber, UserId);
+//		UserDictionary.put(EmailAddress, UserId);
+//
+//	}
 
-		UserDictionary.put(UserName, UserId);
-		UserDictionary.put(Password, UserId);
-		UserDictionary.put(FirstName, UserId);
-		UserDictionary.put(LastName, UserId);
-		UserDictionary.put(PhoneNumber, UserId);
-		UserDictionary.put(EmailAddress, UserId);
-
-	}
-
-	public int UserId() {
-		return this.UserId;
+	public int UserID() {
+		return this.UserID;
 	}
 
 	public String GetUserName() {
@@ -68,6 +80,10 @@ public class User {
 
 	public String ChangePassword(String Password) {
 		return this.ChangePassword;
+	}
+	
+	public static ArrayList<User> getUserList() {
+		return users;
 	}
 
 	public String toString() {

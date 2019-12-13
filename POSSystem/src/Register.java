@@ -9,23 +9,41 @@ public class Register {
 	static ArrayList<Transaction> overallTransactions = new ArrayList<Transaction>();
 	private User currentUser;
 	private double cashAmount;
+	private Login loginModule;
+	
 	
 	public Register(int RegisterID) {
 		this.RegisterID = RegisterID;
 		registerTransactions = new ArrayList<Transaction>();
 		registerTransactionAmount = 0.00;
+		cashAmount = 0.00;
+		loginModule = new Login();
+		
 	}
 	
 	public Register(int RegisterID, double existingCash) {
 		this.RegisterID = RegisterID;
+		registerTransactions = new ArrayList<Transaction>();
+		registerTransactionAmount = 0.00;
 		cashAmount = existingCash;
+	}
+	
+//	public void createUser(String userName, String password, String firstName, String lastName, String emailAddress,
+//			String phoneNumber, Roles role) {
+//		User Dummyuser = new User(userName, password, firstName, lastName, emailAddress, phoneNumber, role);
+//	}
+	
+	public void initiateLogin(String userName, String password) {
+		loginModule = new Login();
+		loginModule.checkLogin(userName, password);
+		currentUser = loginModule.getLoggedInUser(userName);
 	}
 	
 	public void addTransaction(Transaction transaction) {
 		registerTransactions.add(transaction);
 		overallTransactions.add(transaction);
 		updateAmount(transaction);
-		updateCashierReport(transaction);		
+		updateCashierReport(transaction);
 	}
 	
 	public void addCash(double amount) {
